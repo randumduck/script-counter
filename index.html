@@ -9,7 +9,7 @@
     <p id="counter">Loading...</p>
 
     <script>
-        fetch('https://raw.githubusercontent.com/your_username/script-counter/main/counter.txt')
+        fetch('https://raw.githubusercontent.com/your_username/script-counter/counter.txt')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('counter').innerText = data;
