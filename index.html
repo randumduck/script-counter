@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Script Run Counter</title>
+    <title>Randumduc's Script</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
             margin: 0;
             padding: 20px;
         }
         h1 {
             text-align: center;
-            color: #333;
+            color: #fff;
         }
         table {
             width: 100%;
@@ -25,16 +26,30 @@
             text-align: left;
         }
         th {
-            background-color: #4CAF50;
+            background-color: rgba(0, 0, 0, 0.5);
             color: white;
         }
         tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        tr:nth-child(odd) {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        a {
+            color: #ff9a9e;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Script Run Counter</h1>
+    <h1>Randumduc's Script</h1>
     <table>
         <thead>
             <tr>
@@ -48,6 +63,10 @@
             <!-- Data will be inserted here by JavaScript -->
         </tbody>
     </table>
+
+    <footer>
+        <p><a href="https://github.com/randumduck/script-counter" target="_blank">View on GitHub</a></p>
+    </footer>
 
     <script>
         fetch('https://raw.githubusercontent.com/randumduck/script-counter/main/counter.json')
