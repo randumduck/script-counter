@@ -1,69 +1,21 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Script Run Counter</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            padding: 12px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-    </style>
 </head>
 <body>
     <h1>Script Run Counter</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>S.No</th>
-                <th>Script Name</th>
-                <th>Number of Times Ran</th>
-                <th>Details (OS Type, Hostname, IP Address)</th>
-            </tr>
-        </thead>
-        <tbody id="counter-table">
-            <!-- Data will be inserted here by JavaScript -->
-        </tbody>
-    </table>
+    <p>Counter: <span id="counter">Loading...</span></p>
+    <p>Last updated by script running on: <strong>Linux (182.70.33.44)</strong></p>
+    <p>Script name: <strong>script-counter.py</strong></p>
 
     <script>
-        fetch('https://raw.githubusercontent.com/your_username/your_repo/main/counter.json')
-            .then(response => response.json())
+        fetch('https://raw.githubusercontent.com/randumduck/script-counter/main/counter.txt')
+            .then(response => response.text())
             .then(data => {
-                const tableBody = document.getElementById('counter-table');
-                data.forEach(entry => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${entry.serial_number}</td>
-                        <td>${entry.script_name}</td>
-                        <td>${entry.count}</td>
-                        <td>${entry.details.map(detail => `${detail.os_name}, ${detail.hostname}, ${detail.ip_address}`).join('<br>')}</td>
-                    `;
-                    tableBody.appendChild(row);
-                });
+                document.getElementById('counter').innerText = data;
             });
     </script>
 </body>
