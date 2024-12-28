@@ -1,6 +1,4 @@
-# script-counter
-A webpage on GitHub that has a counter which increments every time your script runs.
-Sure! Here’s a detailed step-by-step guide for your `README.md` file to help you set up and run the script that updates the counter on your GitHub repository.
+Sure! Here’s the updated `README.md` file with the new instructions and details:
 
 ### README.md
 
@@ -50,67 +48,43 @@ Ensure the Python script (`script-counter.py`) is updated with your GitHub token
 ```python
 import requests
 from github import Github, GithubException
-import socket
-import os
-import platform
-import json
+import socket, os, platform, json
 
 def update_counter():
-    # Hardcoded GitHub credentials and repository details
-    token = 'your_github_token'  # Your GitHub token
+    token = 'your_new_github_token'  # Replace with your new GitHub token
     repo_name = 'your_username/script-counter'  # Your repository name
     file_path = 'counter.json'  # Path to the counter file in your repository
 
-    # Get the external IP address and OS name
     ip_address = requests.get('https://api.ipify.org').text
-    os_name = platform.system()
-    hostname = socket.gethostname()
-    script_name = os.path.basename(__file__)
+    os_name, hostname, script_name = platform.system(), socket.gethostname(), os.path.basename(__file__)
 
-    # Authenticate to GitHub and get the repository
     repo = Github(token).get_repo(repo_name)
-
-    # Get the current counter data and update it
     try:
         file = repo.get_contents(file_path)
-        counter_data = json.loads(file.decoded_content.decode())
-        sha = file.sha  # Store the SHA of the file for updating
+        counter_data, sha = json.loads(file.decoded_content.decode()), file.sha
     except GithubException as e:
         if e.status == 404:
-            counter_data = []
-            sha = None  # No existing file, so no SHA
+            counter_data, sha = [], None
         else:
             raise e
 
-    # Find the script entry or create a new one
     script_entry = next((entry for entry in counter_data if entry['script_name'] == script_name), None)
     if script_entry:
         script_entry['count'] += 1
-        script_entry['details'].append({
-            'os_name': os_name,
-            'hostname': hostname,
-            'ip_address': ip_address
-        })
+        script_entry['details'].append({'os_name': os_name, 'hostname': hostname, 'ip_address': ip_address})
     else:
-        script_entry = {
+        counter_data.append({
             'serial_number': len(counter_data) + 1,
             'script_name': script_name,
             'count': 1,
-            'details': [{
-                'os_name': os_name,
-                'hostname': hostname,
-                'ip_address': ip_address
-            }]
-        }
-        counter_data.append(script_entry)
+            'details': [{'os_name': os_name, 'hostname': hostname, 'ip_address': ip_address}]
+        })
 
-    # Update or create the counter file in the repository without changing the web page
     if sha:
         repo.update_file(file_path, "Update counter data", json.dumps(counter_data), sha)
     else:
         repo.create_file(file_path, "Create counter data", json.dumps(counter_data))
 
-# Call the function to update the counter
 if __name__ == "__main__":
     update_counter()
 ```
@@ -124,17 +98,18 @@ Ensure the `index.html` file is present in the repository with the following con
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Script Run Counter</title>
+    <title>Randumduc's Script</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
             margin: 0;
             padding: 20px;
         }
         h1 {
             text-align: center;
-            color: #333;
+            color: #fff;
         }
         table {
             width: 100%;
@@ -147,16 +122,30 @@ Ensure the `index.html` file is present in the repository with the following con
             text-align: left;
         }
         th {
-            background-color: #4CAF50;
+            background-color: rgba(0, 0, 0, 0.5);
             color: white;
         }
         tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        tr:nth-child(odd) {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        a {
+            color: #ff9a9e;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Script Run Counter</h1>
+    <h1>Randumduc's Script</h1>
     <table>
         <thead>
             <tr>
@@ -171,8 +160,12 @@ Ensure the `index.html` file is present in the repository with the following con
         </tbody>
     </table>
 
+    <footer>
+        <p><a href="https://github.com/randumduck/script-counter" target="_blank">View on GitHub</a></p>
+    </footer>
+
     <script>
-        fetch('https://raw.githubusercontent.com/your_username/script-counter/main/counter.json')
+        fetch('https://raw.githubusercontent.com/randumduck/script-counter/main/counter.json')
             .then(response => response.json())
             .then(data => {
                 const tableBody = document.getElementById('counter-table');
