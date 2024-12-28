@@ -6,7 +6,8 @@
 </head>
 <body>
     <h1>Script Run Counter</h1>
-    <p id="counter">Loading...</p>
+    <p>Counter: <span id="counter">Loading...</span></p>
+    <p>Last updated by script running on: <strong>{hostname} ({ip_address})</strong></p>
 
     <script>
         fetch('https://raw.githubusercontent.com/randumduck/script-counter/main/counter.txt')
