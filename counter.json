@@ -1,1 +1,1 @@
-[{"serial_number": 1, "script_name": "script-counter.py", "count": 2, "details": [{"os_name": "Linux", "hostname": "ubuntu", "ip_address": "182.70.33.44"}, {"os_name": "Linux", "hostname": "ubuntu", "ip_address": "182.70.33.44"}]}]
+[{"serial_number": 1, "script_name": "script-counter.py", "count": 3, "details": [{"os_name": "Linux", "hostname": "ubuntu", "ip_address": "182.70.33.44"}, {"os_name": "Linux", "hostname": "ubuntu", "ip_address": "182.70.33.44"}, {"os_name": "Linux", "hostname": "ubuntu", "ip_address": "182.70.33.44"}]}]
